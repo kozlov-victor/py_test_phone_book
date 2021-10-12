@@ -13,6 +13,7 @@ def load():
 
 
 def save(db):
-    with open('db.csv', 'rt') as f:
+    with open('db.csv', 'wt') as f:
         writer = csv.writer(f)
-        writer.writerows(db)
+        for key in db.keys():
+            writer.writerow("%s,%s\n"%(key,db[key]))

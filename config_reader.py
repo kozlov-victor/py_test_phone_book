@@ -1,6 +1,7 @@
 
 PICKLE_SERIALIZER_TYPE = 'pickle'
 JSON_SERIALIZER_TYPE = 'json'
+CSV_SERIALIZER_TYPE = 'csv'
 
 
 def resolve_serializers():
@@ -13,7 +14,7 @@ def resolve_serializers():
             elif serializer_type == JSON_SERIALIZER_TYPE:
                 import serializer.json_serializer as module
                 return module.load, module.save
-            elif serializer_type == JSON_SERIALIZER_TYPE:
+            elif serializer_type == CSV_SERIALIZER_TYPE:
                 import serializer.csv_serializer as module
                 return module.load, module.save
             else:
