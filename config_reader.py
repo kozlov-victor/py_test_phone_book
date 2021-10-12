@@ -13,6 +13,9 @@ def resolve_serializers():
             elif serializer_type == JSON_SERIALIZER_TYPE:
                 import serializer.json_serializer as module
                 return module.load, module.save
+            elif serializer_type == JSON_SERIALIZER_TYPE:
+                import serializer.csv_serializer as module
+                return module.load, module.save
             else:
                 raise ValueError('wrong serializer type')
     except Exception as e:

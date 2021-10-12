@@ -48,10 +48,9 @@ def action_default() -> str:
     return 'wrong operation number'
 
 
-def action_quit_app() -> str:
-    global running
-    running = False
-    return 'bye'
+def action_quit_app():
+    print("done")
+    quit(0)
 
 
 actions = {
