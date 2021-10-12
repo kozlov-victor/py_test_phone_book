@@ -1,14 +1,19 @@
 import csv
 
 """
-warning! not tested at all!
+still doesn't work(
 """
 
 
 def load():
-    with open('db.csv', 'rt') as f:
-        db = csv.reader(f)
-        print('csv db has been loaded')
+    with open('db.csv', 'rt') as infile:
+        reader = csv.reader(infile)
+        db = {}
+        for rows in reader:
+            k = rows[0]
+            v = rows[1]
+            db[k] = v
+        print("loaded", db)
         return db
 
 
@@ -16,4 +21,5 @@ def save(db):
     with open('db.csv', 'wt') as f:
         writer = csv.writer(f)
         for key in db.keys():
-            writer.writerow("%s,%s\n"%(key,db[key]))
+            print('saving',key,db[key])
+            writer.writerow([key,db[key]])
