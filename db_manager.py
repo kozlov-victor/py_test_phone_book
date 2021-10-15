@@ -1,7 +1,8 @@
 import config_reader
 
 _db = {}
-_load, _save = config_reader.resolve_serializers()
+_serializer = config_reader.resolve_serializer_module()
+_load, _save = _serializer.load, _serializer.save
 
 
 def load_db():
@@ -11,8 +12,8 @@ def load_db():
 
 def check_name_exists(message):
     def decorator(f):
-        def wrapper(*args):
-            if args[0] in _db:
+        def wrapper(name, *args):
+            if name in _db:
                 raise ValueError(message)
             else:
                 return f(*args)
@@ -24,8 +25,8 @@ def check_name_exists(message):
 
 def check_name_does_not_exist(message):
     def decorator(f):
-        def wrapper(*args):
-            if args[0] not in _db:
+        def wrapper(name, *args):
+            if name not in _db:
                 raise ValueError(message)
             else:
                 return f(*args)
@@ -42,7 +43,9 @@ def new_record(name: str, phone: str):
 
 
 def read_phone_by_name(name: str) -> str:
-    return _db.get(name, None)
+    if name not in _db:
+        raise ValueError('no such name')
+    return _db.get(name)
 
 
 @check_name_does_not_exist('can not update: no such name')
