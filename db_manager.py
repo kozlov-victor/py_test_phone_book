@@ -20,7 +20,7 @@ def check_name_exists(message):
             if name in _db:
                 raise ValueError(message)
             else:
-                return f(*args)
+                return f(name,*args)
 
         return wrapper
 
@@ -33,7 +33,7 @@ def check_name_does_not_exist(message):
             if name not in _db:
                 raise ValueError(message)
             else:
-                return f(*args)
+                return f(name,*args)
 
         return wrapper
 
