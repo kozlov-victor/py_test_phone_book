@@ -10,8 +10,8 @@ def action_new_record():
 
 def action_read_phone_by_name():
     name = input('enter name>')
-    phone = db_manager.read_phone_by_name(name)
-    print(f'found: {phone}')
+    contact = db_manager.read_phone_by_name(name)
+    print(f'found: {contact.phone}')
 
 
 def action_update_phone():
