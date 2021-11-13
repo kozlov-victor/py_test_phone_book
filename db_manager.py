@@ -1,5 +1,7 @@
 import config_reader
 from models.contact import Contact
+from models.phonebookattribute import PhoneBookAttribute
+
 
 """
     _db - dictionary with key:string and value:Contact
@@ -41,26 +43,30 @@ def check_name_does_not_exist(message):
 
 
 @check_name_exists('name already exists')
-def new_record(name: str, phone: str):
-    contact = Contact()
-    contact.from_dict({"phone": phone})
+def new_record(name: str, attr: PhoneBookAttribute):
+    contact = Contact(name, [attr])
     _db[name] = contact
     _save(_db)
 
 
-def read_phone_by_name(name: str) -> Contact:
+def read_contact_by_name(name: str) -> Contact:
     if name not in _db:
         raise ValueError('no such name')
     return _db.get(name)
 
 
 @check_name_does_not_exist('can not update: no such name')
-def update_phone(name: str, phone: str):
-    _db[name].phone = phone
-    _save()
+def update_attribute(name: str, attribute: PhoneBookAttribute):
+    contact = _db[name]
+    attribute_to_find = [x for x in contact.attributes if x.type == attribute.type]
+    if not attribute_to_find:
+        contact.attributes.append(attribute)
+    else:
+        attribute_to_find[0].value = attribute.value
+    _save(_db)
 
 
 @check_name_does_not_exist('can not delete: no such name')
 def delete_record(name: str):
     del _db[name]
-    _save()
+    _save(_db)

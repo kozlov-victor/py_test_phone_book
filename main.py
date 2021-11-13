@@ -8,8 +8,8 @@ def print_menu():
     print(
         """
         1: create new record
-        2: read phone by name
-        3: update phone
+        2: read contact by name
+        3: update contact attribute
         4: delete record
         5: exit
         """
@@ -28,8 +28,8 @@ def action_quit_app():
 
 actions = {
     '1': phone_book_controller.action_new_record,
-    '2': phone_book_controller.action_read_phone_by_name,
-    '3': phone_book_controller.action_update_phone,
+    '2': phone_book_controller.action_read_contact_by_name,
+    '3': phone_book_controller.action_update_contact_attribute,
     '4': phone_book_controller.action_delete_record,
     '5': action_quit_app
 }
